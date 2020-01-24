@@ -4,7 +4,7 @@ let compScore = 0;
 const userScore_span = document.getElementById('user-score');
 const compScore_span = document.getElementById('comp-score');
 
-const resultMessage_p = document.getElementsByClassName('result-message');
+const resultMessage_p = document.querySelector('.result-message > p');
 
 const rock_div = document.getElementById('rock');
 const paper_div = document.getElementById('paper');
@@ -18,14 +18,61 @@ function getCompChoice() {
 
 }
 
+function toTitleCase(str) {
+  return str.replace(
+      /\w\S*/g,
+      function(txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+  );
+}
+
+
+function win(userChoice, compChoice) {
+  userScore++;
+  userScore_span.innerHTML = userScore;
+  resultMessage_p.innerHTML = ( toTitleCase(userChoice) + ' beats ' + compChoice + '. You win!');
+}
+
+function lose(userChoice, compChoice) {
+  compScore++;
+  compScore_span.innerHTML = compScore;
+  resultMessage_p.innerHTML = ( toTitleCase(userChoice) + ' beats ' + compChoice + '. You lose!');
+}
+
+function draw(userChoice, compChoice) {
+  resultMessage_p.innerHTML = ('Both picked ' + userChoice + '. It\'s a draw!');
+
+}
+
 function game(userChoice) {
 
   compChoice = getCompChoice();
 
-  console.log("You pressed "+ userChoice);
-  console.log("Comp pressed "+ compChoice);
+  console.log(userChoice+ ' '+compChoice);
 
+  switch (userChoice+ ' '+compChoice) {
+    case 'rock rock':
+    case 'paper paper':
+    case 'scissors scissors':
+      console.log("It's a draw!");
+      draw(userChoice, compChoice);
+      break;
 
+    case 'rock scissors':
+    case 'paper rock':
+    case 'scissors paper':
+      console.log("You win!");
+      win(userChoice, compChoice);
+      break;
+
+    case 'rock paper':
+    case 'paper scissors':
+    case 'scissors rock':
+      console.log("You lose");
+      lose(userChoice, compChoice);
+      break;
+  }
 }
 
 
