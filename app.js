@@ -18,14 +18,43 @@ function getCompChoice() {
 
 }
 
+function draw() {
+  console.log("It's a draw!");
+}
+
+function win() {
+  console.log("You win!");
+}
+
+function lose() {
+  console.log("You lose");
+}
+
 function game(userChoice) {
 
   compChoice = getCompChoice();
 
-  console.log("You pressed "+ userChoice);
-  console.log("Comp pressed "+ compChoice);
+  console.log(userChoice+ ' '+compChoice);
 
+  switch (userChoice+ ' '+compChoice) {
+    case 'rock rock':
+    case 'paper paper':
+    case 'scissors scissors':
+      draw();
+      break;
 
+    case 'rock scissors':
+    case 'paper rock':
+    case 'scissors paper':
+      win();
+      break;
+
+    case 'rock paper':
+    case 'paper scissors':
+    case 'scissors rock':
+      lose();
+      break;
+  }
 }
 
 
